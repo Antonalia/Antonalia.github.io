@@ -1,0 +1,14 @@
+# Generated Hexo output and cache
+node_modules/
+public/
+db.json
+.deploy_git/
+
+# Local-only files
+.DS_Store
+Thumbs.db
+*.log
+
+# Secrets must stay outside version control
+.env
+.env.*

@@ -1,0 +1,77 @@
+---
+title: Hexo+Fluid中头像旋转呼吸发光的实现
+excerpt: Hexo采用Fluid主题，关于页头像会呼吸间歇发光，鼠标悬浮在头像上时头像会旋转
+date: 
+tags:
+- Hexo
+- Fluid
+categories:
+- 博客
+math: false
+typora-root-url: ./.. 
+---
+将以下代码复制到主题配置的hexo-blog\themes\fluid\source\css\_pages\_about\about.styl中
+```css
+.about-avatar
+  position relative
+  margin -8rem auto 1rem
+  width 10rem
+  height 10rem
+  z-index 3
+
+  img
+    width 100%
+    height 100%
+    border-radius 50%
+    background-color transparent
+    object-fit cover
+    box-shadow 0 2px 5px 0 rgba(0,0,0, 0.11), 0 2px 10px 0 rgba(0, 0, 0, 1) // 头像框周围黑色包裹线条
+
+    transition: all 1.7s
+    
+    animation: shadowBlink 4s infinite; // 一次闪烁的时间
+.img-fluid:hover {
+  background-color: #00FFFF;
+  -webkit-box-shadow: 0px 0px 10px 10px rgba(255,255,255, 0.7);
+  // box-shadow: 0px 0px 70px 6px rgba(230, 230, 90, 1); // 旋转时的发光阴影，分别是水平偏移、垂直偏移、模糊半径（羽化颜色）、阴影尺寸(实心颜色)和RGBA颜色
+
+     transform: rotate(360deg);
+     -webkit-transform: rotate(360deg);
+     -moz-transform: rotate(360deg);
+     -o-transform: rotate(360deg);
+     -ms-transform: rotate(360deg);
+}
+@keyframes shadowBlink {
+  0% {
+    box-shadow: 0px 0px 70px 6px rgba(230, 230, 90, 1); /* 初始阴影 */
+  }
+  50% {
+    box-shadow: 0px 0px 70px 6px rgba(230, 230, 90, 0.3); /* 闪烁时的半透明阴影 */
+  }
+  100% {
+    box-shadow: 0px 0px 70px 6px rgba(230, 230, 90, 1); /* 回到初始阴影 */
+  }
+}
+
+.about-info
+  & > div
+    margin-bottom .5rem
+
+.about-name
+  font-size 1.75rem
+  font-weight bold
+
+.about-intro
+  font-size 1rem
+
+.about-icons
+  & > a:not(:last-child)
+    margin-right .5rem
+
+  & > a > i
+    font-size 1.5rem
+
+```
+
+## 参考
+1、[fluid主题设置关于页头像图片鼠标悬停360°旋转效果 - Wenbin's blog (zzzwb.com)](https://www.zzzwb.com/2023/09-27-css002.html#:~:text=fluid主题设置关)
